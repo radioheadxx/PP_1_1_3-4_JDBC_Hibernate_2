@@ -10,11 +10,12 @@ public class Util {
     private static final String PASSWORD = "greenfrog13$";
 
     public static Connection getConnection() {
-        try(Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             Class.forName("com.mysql.cj.jdbc.Driver");
             return connection;
         } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace();
         }
         return null;
-    }}
+    }
+}
