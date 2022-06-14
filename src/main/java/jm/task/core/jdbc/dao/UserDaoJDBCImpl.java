@@ -9,6 +9,7 @@ import java.util.List;
 import static jm.task.core.jdbc.util.Util.getConnection;
 
 public class UserDaoJDBCImpl implements UserDao {
+
     public UserDaoJDBCImpl() {
 
     }
@@ -16,7 +17,7 @@ public class UserDaoJDBCImpl implements UserDao {
     private Connection connection = getConnection();
 
     public void createUsersTable() {
-        String sql = "CREATE TABLE `mydb`.`users` (\n" +
+        String sql = "CREATE TABLE IF NOT EXISTS `mydb`.`users` (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
                 "  `name` VARCHAR(45) NOT NULL,\n" +
                 "  `lastName` VARCHAR(45) NOT NULL,\n" +

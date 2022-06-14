@@ -13,11 +13,11 @@ import java.util.Properties;
 
 public class Util {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/mysql";
+    private static final String URL = "jdbc:mysql://localhost:3306/mydb";
 
     private static final String USERNAME = "root";
 
-    private static final String PASSWORD = "greenfrog13$";
+    private static final String PASSWORD = "root";
 
     public static String driver = "com.mysql.cj.jdbc.Driver";
 
@@ -29,10 +29,15 @@ public class Util {
                 Configuration configuration = new Configuration();
 
                 Properties settings = new Properties();
+
                 settings.put(Environment.DRIVER, driver);
+
                 settings.put(Environment.URL, URL);
+
                 settings.put(Environment.USER, USERNAME);
+
                 settings.put(Environment.PASS, PASSWORD);
+
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
 
                 settings.put(Environment.SHOW_SQL, "true");
@@ -67,6 +72,4 @@ public class Util {
         }
         return null;
     }
-
-
 }
