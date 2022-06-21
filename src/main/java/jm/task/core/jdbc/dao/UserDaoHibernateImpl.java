@@ -14,45 +14,34 @@ public class UserDaoHibernateImpl implements UserDao {
     public UserDaoHibernateImpl() {
 
     }
+    private static String createTableSql = "CREATE TABLE IF NOT EXISTS `mydb`.`users` (\n" +
+            "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+            "  `name` VARCHAR(45) NOT NULL,\n" +
+            "  `lastName` VARCHAR(45) NOT NULL,\n" +
+            "  `age` INT NOT NULL,\n" +
+            "                    PRIMARY KEY (`id`))";
+
+    private static final String dropTableSql = "DROP TABLE IF EXISTS `mydb`.`users`";
 
     SessionFactory sessionFactory = getSessionFactory();
 
     @Override
     public void createUsersTable() {
         try (Session session = sessionFactory.getCurrentSession()) {
-            session.beginTransaction();
-
-            String sql = "CREATE TABLE IF NOT EXISTS users (\n" +
-                    "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-                    "  `name` VARCHAR(45) NOT NULL,\n" +
-                    "  `lastName` VARCHAR(45) NOT NULL,\n" +
-                    "  `age` INT NOT NULL,\n" +
-                    "   PRIMARY KEY (`id`))";
-
-            session.createSQLQuery(sql).executeUpdate();
-
-            session.getTransaction().commit();
+            session.createSQLQuery(createTableSql).executeUpdate();
         }
     }
 
     @Override
     public void dropUsersTable() {
         try (Session session = sessionFactory.getCurrentSession()) {
-            session.beginTransaction();
-
-            String sql = "DROP TABLE IF EXISTS users";
-
-            session.createSQLQuery(sql).executeUpdate();
-
-            session.getTransaction().commit();
+            session.createSQLQuery(dropTableSql).executeUpdate();
         }
     }
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
-
         User user = new User(name, lastName, age);
-
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
             session.save(user);
